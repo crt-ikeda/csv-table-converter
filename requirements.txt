@@ -1,0 +1,9 @@
+# No external dependencies required
+# This tool uses only Python standard library modules:
+# - csv
+# - argparse  
+# - sys
+# - unicodedata
+# - pathlib
+
+# Python 3.6 or higher required
