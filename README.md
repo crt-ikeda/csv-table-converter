@@ -1,36 +1,36 @@
 # CSV Table Converter
 
-Convert CSV/TSV/PSV files to beautiful ASCII tables or Markdown tables with full Unicode support.
+CSV/TSV/PSVファイルを美しいASCII表やマークダウン表に変換するPythonツールです。完全なUnicode対応で、日本語をはじめとする全角文字も正確に表示できます。
 
-## ✨ Features
+## ✨ 主な機能
 
-- **Multiple Output Formats**: ASCII tables and Markdown tables
-- **Full Unicode Support**: Perfect handling of Japanese, Chinese, Korean, and other Unicode characters
-- **Smart Auto-Detection**: Automatic delimiter and header detection
-- **Multiple Encodings**: Supports UTF-8, Shift_JIS, CP932, EUC-JP, and more
-- **Auto-Save**: Generate output files with automatic naming
-- **Full-Width Character Support**: Correctly handles full-width spaces and characters
-- **Flexible Options**: Column width limits, custom delimiters, and more
+- **複数の出力形式対応**: ASCII表とマークダウン表の両方に対応
+- **完全なUnicode対応**: 日本語・中国語・韓国語などの全角文字を正確に表示
+- **智的自動検出**: 区切り文字とヘッダーの自動判定
+- **多様なエンコーディング対応**: UTF-8、Shift_JIS、CP932、EUC-JPなど8種類に対応
+- **自動保存機能**: ファイル名自動生成による簡単保存
+- **全角スペース対応**: 環境依存の表示崩れを解決
+- **豊富なオプション**: 列幅制限・カスタム区切り文字など
 
-## 🚀 Quick Start
+## 🚀 クイックスタート
 
 ```bash
-# Basic usage - display as ASCII table
+# 基本的な使用 - ASCII表で表示
 python table_converter.py data.csv
 
-# Save as text file automatically
+# 自動保存（data.txt として保存）
 python table_converter.py data.csv --save
 
-# Generate Markdown table
+# マークダウン表を生成
 python table_converter.py data.csv --format markdown --save
 
-# Handle full-width spaces (for CJK text)
+# 全角スペース問題を解決（日本語データ推奨）
 python table_converter.py data.csv --normalize-ws --save
 ```
 
-## 📋 Examples
+## 📋 出力例
 
-### Input CSV
+### 入力CSV
 ```csv
 Name,Age,City
 田中太郎,25,東京
@@ -38,7 +38,7 @@ Name,Age,City
 佐藤次郎,28,福岡
 ```
 
-### ASCII Table Output
+### ASCII表出力
 ```
 +----------+------+------+
 | Name     | Age  | City |
@@ -49,7 +49,7 @@ Name,Age,City
 +----------+------+------+
 ```
 
-### Markdown Table Output
+### マークダウン表出力
 ```markdown
 | Name     | Age  | City |
 |----------|------|------|
@@ -58,108 +58,154 @@ Name,Age,City
 | 佐藤次郎 | 28   | 福岡 |
 ```
 
-## 📖 Usage
+## 📖 使用方法
 
 ```bash
-python table_converter.py [OPTIONS] INPUT_FILE
+python table_converter.py [オプション] 入力ファイル
 ```
 
-### Options
+### コマンドラインオプション
 
-| Option | Description |
-|--------|-------------|
-| `-o, --output FILE` | Output file name |
-| `--save` | Auto-save with automatic file naming |
-| `--format {ascii,markdown}` | Output format (default: ascii) |
-| `--normalize-ws` | Normalize full-width spaces for stable display |
-| `--max-width N` | Limit column width to N characters |
-| `--no-align` | Minimal Markdown format without column alignment |
-| `--header` | Force treat first row as header |
-| `--no-header` | Force treat all rows as data |
-| `-d CHAR` | Manually specify delimiter |
-| `--save-ext EXT` | Custom extension for auto-save |
+| オプション | 説明 |
+|-----------|------|
+| `-o, --output ファイル名` | 出力ファイル名を指定 |
+| `--save` | 自動ファイル名生成で保存 |
+| `--format {ascii,markdown}` | 出力形式選択（デフォルト: ascii） |
+| `--normalize-ws` | 全角スペースを正規化して安定表示 |
+| `--max-width N` | 列幅をN文字に制限 |
+| `--no-align` | マークダウン最小形式（列揃えなし） |
+| `--header` | 強制的にヘッダーありとして処理 |
+| `--no-header` | 強制的にヘッダーなしとして処理 |
+| `-d 文字` | 区切り文字を手動指定 |
+| `--save-ext 拡張子` | 自動保存時の拡張子をカスタム指定 |
 
-### File Format Support
+### 対応ファイル形式
 
-- **CSV** (`.csv`) - Comma-separated values
-- **TSV** (`.tsv`) - Tab-separated values  
-- **PSV** (`.psv`) - Pipe-separated values
-- **Custom** - Any delimiter with `-d` option
+- **CSV** (`.csv`) - カンマ区切り
+- **TSV** (`.tsv`) - タブ区切り  
+- **PSV** (`.psv`) - パイプ区切り
+- **カスタム** - `-d`オプションで任意の区切り文字
 
-### Encoding Support
+### 対応エンコーディング
 
-Automatically detects and handles:
+以下のエンコーディングを自動検出・対応：
 - UTF-8
 - Shift_JIS
-- CP932 (Windows Japanese)
-- EUC-JP (Unix Japanese)
-- ISO-2022-JP (JIS)
+- CP932（Windows日本語）
+- EUC-JP（Unix日本語）
+- ISO-2022-JP（JISコード）
 - UTF-16
 - Latin-1
-- CP1252 (Windows Western)
+- CP1252（Windows西欧）
 
-## 🌏 Unicode & CJK Support
+## 🌏 Unicode・日本語対応
 
-This tool provides excellent support for Unicode characters, especially CJK (Chinese, Japanese, Korean) text:
+このツールは特に日本語を含むCJK（中国語・日本語・韓国語）テキストに優れた対応を提供します：
 
-- **Accurate Width Calculation**: Uses Unicode East Asian Width properties
-- **Full-Width Character Handling**: Properly displays characters that take 2 display columns
-- **Full-Width Space Fix**: `--normalize-ws` option solves terminal-dependent display issues
+- **正確な幅計算**: Unicode East Asian Widthプロパティを使用
+- **全角文字処理**: 表示列数2の文字を正確に処理
+- **全角スペース修正**: `--normalize-ws`オプションでターミナル依存の表示問題を解決
 
-### Example with Japanese Text
+### 日本語データでの使用例
 ```bash
-# For files containing full-width spaces that might display incorrectly
+# 全角スペースが含まれるファイルで表示が崩れる場合
 python table_converter.py japanese_data.csv --normalize-ws --save
 ```
 
-## 📁 Auto-Save Examples
+## 📁 自動保存の例
 
 ```bash
-# data.csv → data.txt (ASCII format)
+# data.csv → data.txt（ASCII形式）
 python table_converter.py data.csv --save
 
-# data.csv → data.md (Markdown format) 
+# data.csv → data.md（マークダウン形式） 
 python table_converter.py data.csv --format markdown --save
 
-# data.csv → data.out (custom extension)
+# data.csv → data.out（カスタム拡張子）
 python table_converter.py data.csv --save --save-ext .out
 ```
 
-## 🔧 Installation
+## 🔧 インストール
 
-No additional dependencies required! Uses only Python standard library.
+外部依存なし！Python標準ライブラリのみ使用。
 
 ```bash
-# Clone the repository
+# レポジトリをクローン
 git clone https://github.com/crt-ikeda/csv-table-converter.git
 cd csv-table-converter
 
-# Make executable (optional)
+# 実行可能にする（オプション）
 chmod +x table_converter.py
 
-# Run
+# 実行
 python table_converter.py your_file.csv
 ```
 
-## 📄 Requirements
+## 📄 動作要件
 
-- Python 3.6 or higher
-- No external dependencies (uses only standard library)
+- Python 3.6以上
+- 外部依存なし（標準ライブラリのみ）
 
-## 🤝 Contributing
+## 💡 実用的な活用例
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### データ分析
+```bash
+# 分析結果をMarkdown形式で保存してNotionに貼り付け
+python table_converter.py analysis_result.csv --format markdown --save
+```
 
-## 📜 License
+### レポート作成
+```bash
+# 列幅を制限してコンパクトな表を作成
+python table_converter.py report_data.csv --max-width 15 --save
+```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### バッチ処理
+```bash
+# 複数ファイルを一括変換（bash例）
+for file in *.csv; do
+    python table_converter.py "$file" --normalize-ws --save
+done
+```
 
-## 🙏 Acknowledgments
+### GitHub/Notion対応
+```bash
+# GitHubのREADMEに貼り付け用のマークダウン表
+python table_converter.py stats.csv --format markdown --no-align
+```
 
-- Thanks to the Python community for excellent standard library tools
-- Unicode Consortium for East Asian Width specifications
-- All contributors and users of this tool
+## 🛠️ 技術的特徴
+
+### 全角文字の正確な表示幅計算
+```python
+# Unicode East Asian Widthを使用した精密な幅計算
+eaw = unicodedata.east_asian_width(char)
+if eaw in ('F', 'W'):  # 全角文字
+    width += 2
+else:  # 半角文字
+    width += 1
+```
+
+### 全角スペース問題の解決
+環境によって表示幅が異なる全角スペース（`　`）を半角スペース2個に正規化することで、どの環境でも安定した表示を実現。
+
+### エンコーディング自動判定
+8種類のエンコーディングを順次試行し、最適なエンコーディングで自動読み込み。
+
+## 🤝 コントリビューション
+
+プルリクエストやイシューを歓迎します！改善提案がございましたらお気軽にご連絡ください。
+
+## 📜 ライセンス
+
+このプロジェクトはMITライセンスの下で公開されています。詳細は[LICENSE](LICENSE)ファイルをご確認ください。
+
+## 🙏 謝辞
+
+- Pythonコミュニティの素晴らしい標準ライブラリツール群
+- Unicode Consortiumの East Asian Width仕様
+- このツールを使用・改善してくださるすべてのユーザーの皆様
 
 ---
 
-**Perfect for data analysis, report generation, and anywhere you need beautiful table display! 📊✨**
+**データ分析・レポート作成・美しい表表示が必要なあらゆる場面で活用してください！📊✨**
